@@ -23,6 +23,7 @@ function App() {
         name: "POCO X3",
         price: 800
     });
+    const [temperatureF, setTemperatureF] = useState(0);
 
     function handleClick() {
         setContor(contor + 1);
@@ -35,9 +36,22 @@ function App() {
     }
     // multiply by 1.8 (or 9/5) and add 32.
 
+    function fahrenheitToCelsius(fahrenheitDegrees) {
+        const  celsiusDegrees = (fahrenheitDegrees - 32) * 0.5556;
+        return celsiusDegrees;
+    }
+
     function handleTemperatureChange(event) {
         const newTemperature = +event.target.value;
         setTemperature(newTemperature);
+        setTemperatureF(celsiusToFahrenheit(newTemperature));
+
+    }
+
+    function handleTemperatureFChangeToCelsius(event) {
+        const newTemperatureF = +event.target.value;
+        setTemperatureF(newTemperatureF);
+        setTemperature(fahrenheitToCelsius(newTemperatureF));
     }
 
     function handleColorChange(event) {
@@ -120,15 +134,29 @@ function App() {
                     <li>Optiune 2</li>
                 </ul>
             </div>
-
+       <button onClick={handleClick}>Contor {contor}</button>
+       <br />
             <label>Temperatura in Celsius</label>
             <input
                 type="number"
                 value={temperature}
                 onChange={handleTemperatureChange}
+
             />
-            <div>Temperatura in Fahrenheit {celsiusToFahrenheit(temperature)}</div>
-            <button onClick={handleClick}>Contor {contor}</button>
+
+
+{/*             <div>Temperatura in Fahrenheit {celsiusToFahrenheit(temperature)}</div> */}
+
+
+            <br />
+
+            <label>Temperatura in Fahrenheit</label>
+            <input
+                type="number"
+                value={temperatureF}
+                onChange={handleTemperatureFChangeToCelsius}
+            />
+{/*      <div>Temperatura in Fahrenheit {fahrenheitToCelsius(temperatureF)}</div> */}
 
             <h2>{product.name}</h2>
 
